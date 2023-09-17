@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module1"
+Attribute VB_Name = "AddFunctions"
 
 Sub CreateFunctionsDiscriptions()
     On Error Resume Next
