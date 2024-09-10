@@ -1,3 +1,11 @@
+'===============================================
+'@details	Function to grap the dutch schoolholidays
+'@author        Jordi van Nistelrooij @ Webs en Systems
+'@email         info@websensystems.nl
+'@version       1.0.0
+'@date          2024-09-10
+'@copyright     Non of these scripts maybe copied or modified without permission of the author
+'===============================================
 Attribute VB_Name = "Module1"
 Sub test()
 rijnum = 1
