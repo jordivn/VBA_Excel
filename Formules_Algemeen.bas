@@ -1,9 +1,15 @@
-Attribute VB_Name = "Formules_Algemeen"
+'===============================================
+'@details       General function, random numer, Hex2Dec an so on
+'@author        Jordi van Nistelrooij @ Webs en Systems
+'@email         info@websensystems.nl
+'@version       1.0.0
+'@date          2024-09-10
+'@copyright     Non of these scripts maybe copied or modified without permission of the author
+'===============================================
+
 Dim getal As Double
 
 Function WillekeurigGetal(Optional Laagste = 0, Optional Hoogste = 1, Optional Complexiteit = 1)
-Attribute WillekeurigGetal.VB_Description = "Geeft een willekeurig getal"
-Attribute WillekeurigGetal.VB_ProcData.VB_Invoke_Func = " \n23"
 getal = ((Hoogste - Laagste) * Rnd + Laagste)
 
 While Complexiteit > 1
@@ -17,8 +23,6 @@ WillekeurigGetal = getal
 End Function
 
 Function Hex2Dec(HexString As Variant) As Variant
-Attribute Hex2Dec.VB_Description = "Zet een Heximaal getal om naar decimaal"
-Attribute Hex2Dec.VB_ProcData.VB_Invoke_Func = " \n23"
     Dim X As Integer
     For X = 0 To Len(HexString) - 1
     TASADSA = UCase(Mid(HexString, Len(HexString) - X, 1))
@@ -47,8 +51,6 @@ End Function
 
 Function Dec2Bin(ByVal DecimalIn As Variant, _
               Optional NumberOfBits As Variant) As String
-Attribute Dec2Bin.VB_Description = "Zet een decimaal getal om in een binaire notatie"
-Attribute Dec2Bin.VB_ProcData.VB_Invoke_Func = " \n23"
     Dec2Bin = ""
     DecimalIn = Int(CDec(DecimalIn))
     Do While DecimalIn <> 0
@@ -68,8 +70,6 @@ End Function
 'Binary To Decimal
 ' =================
 Function Bin2Dec(BinaryString As String) As Variant
-Attribute Bin2Dec.VB_Description = "Zet een binair getal om naar het decimale stelsel"
-Attribute Bin2Dec.VB_ProcData.VB_Invoke_Func = " \n23"
     Dim X As Integer
     For X = 0 To Len(BinaryString) - 1
     
