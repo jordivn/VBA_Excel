@@ -1,5 +1,11 @@
-Attribute VB_Name = "Blad_Functies"
-
+'===============================================
+'@details       Scheet functions for excel
+'@author        Jordi van Nistelrooij @ Webs en Systems
+'@email         info@websensystems.nl
+'@version       1.0.0
+'@date          2024-09-10
+'@copyright     Non of these scripts maybe copied or modified without permission of the author
+'===============================================
 Sub LockUpSheet()
     If ActiveSheet.ProtectContents = True Then ActiveSheet.Unprotect
     ActiveSheet.UsedRange.Locked = True
@@ -283,8 +289,6 @@ End Sub
 
 'String zoeken
 Function ZoekenDeel(ZoekString, ZoekBereik As Range, Optional Helewaarde = False, Optional GeeftResterend = False)
-Attribute ZoekenDeel.VB_Description = "Functie voor het zoeken naar een tekst in een range"
-Attribute ZoekenDeel.VB_ProcData.VB_Invoke_Func = " \n25"
 LookAtValue = xlPart
 If Helewaarde Then
 LookAtValue = xlWhole
