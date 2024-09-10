@@ -1,4 +1,13 @@
 Attribute VB_Name = "Formules_Geometrie"
+'===============================================
+'@details       Formula's for Geometrics
+'@author        Jordi van Nistelrooij @ Webs en Systems
+'@email         info@websensystems.nl
+'@version       1.0.0
+'@date          2024-09-10
+'@copyright     Non of these scripts maybe copied or modified without permission of the author
+'===============================================
+
 Public Const JTOOLS_Pi As Double = 3.141592654
 
 Function sec(X)

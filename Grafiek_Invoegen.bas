@@ -1,4 +1,13 @@
 Attribute VB_Name = "Grafiek_Invoegen"
+'===============================================
+'@details       Function for building Gausgrafic
+'@author        Jordi van Nistelrooij @ Webs en Systems
+'@email         info@websensystems.nl
+'@version       1.0.0
+'@date          2024-09-10
+'@copyright     Non of these scripts maybe copied or modified without permission of the author
+'===============================================
+
 Sub BuildGaus()
 
   Gemiddelde = Application.WorksheetFunction.Average(Selection)

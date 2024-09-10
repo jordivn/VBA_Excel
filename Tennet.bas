@@ -1,4 +1,13 @@
 Attribute VB_Name = "Tennet"
+'===============================================
+'@details       Functions to interact with Tennet (Dutch electronic grid manager)
+'@author        Jordi van Nistelrooij @ Webs en Systems
+'@email         info@websensystems.nl
+'@version       1.0.0
+'@date          2024-09-10
+'@copyright     Non of these scripts maybe copied or modified without permission of the author
+'===============================================
+
 Public TENNET_SEQUENCE
 Public TENNET_TIME
 Public TENNET_UD

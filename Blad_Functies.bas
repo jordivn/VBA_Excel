@@ -1,3 +1,4 @@
+Attribute VB_Name = "Blad_Functies"
 '===============================================
 '@details       Scheet functions for excel
 '@author        Jordi van Nistelrooij @ Webs en Systems
@@ -289,6 +290,8 @@ End Sub
 
 'String zoeken
 Function ZoekenDeel(ZoekString, ZoekBereik As Range, Optional Helewaarde = False, Optional GeeftResterend = False)
+Attribute ZoekenDeel.VB_Description = "Functie voor het zoeken naar een tekst in een range"
+Attribute ZoekenDeel.VB_ProcData.VB_Invoke_Func = " \n25"
 LookAtValue = xlPart
 If Helewaarde Then
 LookAtValue = xlWhole

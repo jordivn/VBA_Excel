@@ -1,7 +1,17 @@
 Attribute VB_Name = "Omrekenen_Functie"
+'===============================================
+'@details       Transformation functions in dutch
+'@author        Jordi van Nistelrooij @ Webs en Systems
+'@email         info@websensystems.nl
+'@version       1.0.0
+'@date          2024-09-10
+'@copyright     Non of these scripts maybe copied or modified without permission of the author
+'===============================================
+
 Function OmrekenenEnergie(waarde, eenheidEindproduct, Optional eenheidBeginproduct = "")
 Attribute OmrekenenEnergie.VB_Description = "Berekend energie om naar een andere eenheid"
 Attribute OmrekenenEnergie.VB_ProcData.VB_Invoke_Func = " \n23"
+'http://convertking.net/nl/druk/
 'alles naar J
 If eenheidBeginproduct <> "" Then
         eenheidBeginproduct = LCase(eenheidBeginproduct)
@@ -62,7 +72,7 @@ End Function
 Function OmrekenenDruk(waarde, eenheidEindproduct, Optional eenheidBeginproduct = "")
 Attribute OmrekenenDruk.VB_Description = "Berekend druk om naar een andere eenheid"
 Attribute OmrekenenDruk.VB_ProcData.VB_Invoke_Func = " \n23"
-
+'http://convertking.net/nl/druk/
 'alles naar Pa
 If eenheidBeginproduct <> "" Then
         eenheidBeginproduct = LCase(eenheidBeginproduct)
@@ -133,7 +143,7 @@ End Function
 Function OmrekenenGewicht(waarde, eenheidEindproduct, Optional eenheidBeginproduct = "")
 Attribute OmrekenenGewicht.VB_Description = "Berekend gewicht  om naar een andere eenheid"
 Attribute OmrekenenGewicht.VB_ProcData.VB_Invoke_Func = " \n23"
-
+'http://convertking.net/nl/gewicht/
 'alles naar g
 If eenheidBeginproduct <> "" Then
         eenheidBeginproduct = LCase(eenheidBeginproduct)

@@ -1,4 +1,251 @@
-Attribute VB_Name = "Module1"
+Attribute VB_Name = "Basis_Functies"
+Public RunFirst As Boolean
+Public Version As String
+Public ConnectionString As String
+
+Sub CheckAndDisplay()
+If ActiveWorkbook.Name <> "Jtools Update" Then
+    NewVersionWindow.show
+End If
+End Sub
+
+Sub CheckForUpdate()
+
+
+
+    Dim xmlhttp As Object
+    Set xmlhttp = CreateObject("MSXML2.serverXMLHTTP")
+    
+    
+    xmlhttp.Open "GET", "https://websensystems.nl/JTools/version.php", False
+    
+    xmlhttp.Send
+    AvailibleVersion = xmlhttp.responseText
+        
+    
+   
+        
+        'Basis_Functies.Version = textline
+        
+        
+        If AvailibleVersion <> Basis_Functies.Version Then
+        
+        ' UPDATE FUNCTIE
+        ' Moet module (.bas) importeren in bestaande workbook. Zichzelf uitschakelen. Nieuwe copyen. Herladen
+        
+        
+'            szTargetWorkbook = ActiveWorkbook.Name
+'           Set wkbTarget = Application.Workbooks(szTargetWorkbook)
+            
+            
+            'Set cmpComponents = wkbTarget.VBProject.VBComponents
+            'cmpComponents.import "U:\Excels\Modules\X_steam_Tables.bas"
+            
+        
+        
+ '           fs.CopyFile Source:=ThisWorkbook.FullName, Destination:=ThisWorkbook.FullName & ".old"
+            
+            'fs.CopyFile Source:="P:\Stortkok\Jordi\jtools.xlam", Destination:=ThisWorkbook.FullName
+ '           MsgBox ("Jtools updated. Start excel opnieuw op.")
+ 
+            NewVersionWindow.Label2.Caption = "Versie: " & AvailibleVersion
+            Application.OnTime Now + TimeValue("00:00:03"), " Basis_Functies.CheckAndDisplay"
+            
+       
+        End If
+        
+End Sub
+
+
+Sub doLogging()
+    'On Error Resume Next
+   '     Open "P:\Stortkok\Jordi\active.logging" For Append As 1
+   '     Print #1, Format(Now, "dd-mm-YYYY hh:mm:ss") & ";" & Application.UserName & ";" & ActiveWorkbook.FullName & ";" & ThisWorkbook.FullName
+   '     Close #1
+    On Error Resume Next
+    Dim xmlhttp As Object
+    Set xmlhttp = CreateObject("MSXML2.serverXMLHTTP")
+    Dim myURL As String
+    If Basis_Functies.Version = "" Then
+        Call InstelFuncties.GetSettingsOfUser
+    End If
+    
+    Dim strEnviron As String
+    Dim I As Long
+    For I = 1 To 255
+        strEnviron = Environ(I)
+        If LenB(strEnviron) = 0& Then Exit For
+        EnvString = EnvString & "#" & strEnviron
+    Next
+    
+    strData = "dt=" & Format(Now, "yyyymmddhhmmss")
+    strData = strData & ";User=" & Application.UserName
+    strData = strData & ";Workbook=" & ActiveWorkbook.FullName
+    strData = strData & ";Jtools=" & ThisWorkbook.FullName
+    strData = strData & ";Version=" & Basis_Functies.Version
+    'strData = strData & ";EnvMent=" & EnvString
+    
+    myURL = "https://websensystems.nl/JTools/getting.php?action=UserLog&msg=" + Base64EncodeString(strData)
+    xmlhttp.Open "GET", myURL, False
+    xmlhttp.setRequestHeader "Content-Type", "text/json"
+    xmlhttp.Send
+    'MsgBox (xmlhttp.responseText)
+End Sub
+
+Sub CheckAlarms()
+    
+    numAlarms = AlertScreen.ListBox1.ListCount
+    AlertScreen.UserForm_Activate
+    numAlarms2 = AlertScreen.ListBox1.ListCount
+    If numAlarms2 > numAlarms And Not RunFirst Then
+    Beep
+    MsgBox ("Nieuwe Alarmen gedetecteerd")
+    End If
+    RunFirst = False
+       
+    TijdVolgendeCheck = CDate(Tijd_Functie.VolgendeHeleUur) + TimeValue("00:00:10")
+    
+    Application.OnTime TijdVolgendeCheck, "Basis_Functies.CheckAlarms"
+End Sub
+
+
+
+
+
+Sub CreateFunctionsDiscriptions2()
+    On Error Resume Next
+    
+    
+    ThisWorkbook.Worksheets("JTools functielijst").Sort.SortFields.Clear
+    ThisWorkbook.Worksheets("JTools functielijst").Sort.SortFields.Add2 Key:= _
+        Range("C2:C97"), SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:= _
+        xlSortNormal
+    ThisWorkbook.Worksheets("JTools functielijst").Sort.SortFields.Add2 Key:= _
+        Range("A2:A97"), SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:= _
+        xlSortNormal
+    With ThisWorkbook.Worksheets("JTools functielijst").Sort
+        .SetRange Range("A1:S97")
+        .Header = xlYes
+        .MatchCase = False
+        .Orientation = xlTopToBottom
+        .SortMethod = xlPinYin
+        .Apply
+    End With
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    Dim argdesc() As Variant
+    
+    Dim helpFile As String
+    helpFile = "https://websensystems.nl/JTools/Functions.html"
+    catName = ""
+    
+    htmlFile = "<div class=container><div class=row><div class=col><div id=accordion><div><div><div>"
+    
+  '  If SheetsVBAFunctions.CheckIfSheetExists("JTools functielijst") Then
+        rijnum = 2
+        While ThisWorkbook.Sheets("JTools functielijst").Range("A" & rijnum).Value <> ""
+            If catName <> ThisWorkbook.Sheets("JTools functielijst").Range("C" & rijnum).Value Then
+                catName = ThisWorkbook.Sheets("JTools functielijst").Range("C" & rijnum).Value
+                catNameStipts = Replace(catName, " ", "")
+                htmlFile = htmlFile + "</div></div></div><div class=card><div class=card-header id=""heading" & catNameStipts & """><h5 class=mb-0><button class=""btn btn-link"" data-toggle=collapse data-target=#collapse" & catNameStipts & " aria-expanded=true aria-controls=collapse" & catNameStipts & ">" & catName & "</button></h5></div><div id=collapse" & catNameStipts & " class=collapse aria-labelledby=""heading" & catNameStipts & """ data-parent=#accordion><div class=card-body>"
+            End If
+            htmlFile = htmlFile + "<table class='table mb-5 table-bordered ' id='" & ThisWorkbook.Sheets("JTools functielijst").Range("A" & rijnum).Value & "'><tr><td colspan=2><h3>" & ThisWorkbook.Sheets("JTools functielijst").Range("A" & rijnum).Value & "<h3></td><tr>"
+            htmlFile = htmlFile + "<tr><td colspan=2>" & ThisWorkbook.Sheets("JTools functielijst").Range("B" & rijnum).Value & "</td></tr>"
+            htmlFile = htmlFile + "<tr><td colspan=2>=" & ThisWorkbook.Sheets("JTools functielijst").Range("A" & rijnum).Value & "(" & ThisWorkbook.Sheets("JTools functielijst").Range("D" & rijnum).Value & ")</td></tr>"
+            If ThisWorkbook.Sheets("JTools functielijst").Range("D" & rijnum).Value <> "" Then
+                ArgumentenLijst = Split(ThisWorkbook.Sheets("JTools functielijst").Range("D" & rijnum).Value, ",")
+            
+            
+                ReDim argdesc(0 To UBound(ArgumentenLijst))
+                argdesc(0) = ThisWorkbook.Sheets("JTools functielijst").Range("E" & rijnum).Value
+                htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(0) & "</td><td>" & argdesc(0) & "</td></tr>"
+                
+                
+                If UBound(ArgumentenLijst) > 0 Then
+                    argdesc(1) = ThisWorkbook.Sheets("JTools functielijst").Range("F" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(1) & "</td><td>" & argdesc(1) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 1 Then
+                    argdesc(2) = ThisWorkbook.Sheets("JTools functielijst").Range("G" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(2) & "</td><td>" & argdesc(2) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 2 Then
+                    argdesc(3) = ThisWorkbook.Sheets("JTools functielijst").Range("H" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(3) & "</td><td>" & argdesc(3) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 3 Then
+                    argdesc(4) = ThisWorkbook.Sheets("JTools functielijst").Range("I" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(4) & "</td><td>" & argdesc(4) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 4 Then
+                    argdesc(5) = ThisWorkbook.Sheets("JTools functielijst").Range("J" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(5) & "</td><td>" & argdesc(5) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 5 Then
+                    argdesc(6) = ThisWorkbook.Sheets("JTools functielijst").Range("K" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(6) & "</td><td>" & argdesc(6) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 6 Then
+                    argdesc(7) = ThisWorkbook.Sheets("JTools functielijst").Range("L" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(7) & "</td><td>" & argdesc(7) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 7 Then
+                    argdesc(8) = ThisWorkbook.Sheets("JTools functielijst").Range("M" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(8) & "</td><td>" & argdesc(8) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 8 Then
+                    argdesc(9) = ThisWorkbook.Sheets("JTools functielijst").Range("N" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(9) & "</td><td>" & argdesc(9) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 9 Then
+                    argdesc(10) = ThisWorkbook.Sheets("JTools functielijst").Range("O" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(10) & "</td><td>" & argdesc(10) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 10 Then
+                    argdesc(11) = ThisWorkbook.Sheets("JTools functielijst").Range("P" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(11) & "</td><td>" & argdesc(11) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 11 Then
+                    argdesc(12) = ThisWorkbook.Sheets("JTools functielijst").Range("Q" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(12) & "</td><td>" & argdesc(12) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 12 Then
+                    argdesc(13) = ThisWorkbook.Sheets("JTools functielijst").Range("R" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(13) & "</td><td>" & argdesc(13) & "</td></tr>"
+                End If
+                If UBound(ArgumentenLijst) > 13 Then
+                    argdesc(14) = ThisWorkbook.Sheets("JTools functielijst").Range("S" & rijnum).Value
+                    htmlFile = htmlFile + "<tr><td>" & ArgumentenLijst(14) & "</td><td>" & argdesc(14) & "</td></tr>"
+                End If
+                
+                
+                
+            End If
+            HelpURL = helpFile ' & "#" & thisworkbook.Sheets("JTools functielijst").Range("A" & rijnum).Value
+            Application.MacroOptions ThisWorkbook.Sheets("JTools functielijst").Range("A" & rijnum).Value, ThisWorkbook.Sheets("JTools functielijst").Range("B" & rijnum).Value, Category:="JTools - " & ThisWorkbook.Sheets("JTools functielijst").Range("C" & rijnum).Value, ArgumentDescriptions:=argdesc, StatusBar:=ThisWorkbook.Sheets("JTools functielijst").Range("C" & rijnum).Value, helpFile:=HelpURL
+            ReDim argdesc(0 To 1)
+            htmlFile = htmlFile + "</table>"
+        rijnum = rijnum + 1
+        Wend
+        Open "U:\Functions.html" For Output As 1
+        Print #1, "<!DOCTYPE html><html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'><!-- Optional theme --><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css' integrity='sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp' crossorigin='anonymous'><script src=https://code.jquery.com/jquery-3.2.1.slim.min.js integrity=sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js integrity=sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q crossorigin=anonymous></script>"
+        Print #1, "<script src=https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js integrity=sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl crossorigin=anonymous></script></head><body>" & htmlFile & "</div></div></div></div></body></html>"
+
+        Close #1
+  '  End If
+    
+End Sub
+
 
 Sub CreateFunctionsDiscriptions()
     On Error Resume Next

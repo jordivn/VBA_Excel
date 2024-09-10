@@ -1,4 +1,13 @@
 Attribute VB_Name = "Tijd_Functie"
+'===============================================
+'@details       Functions for time in dutch
+'@author        Jordi van Nistelrooij @ Webs en Systems
+'@email         info@websensystems.nl
+'@version       1.0.0
+'@date          2024-09-10
+'@copyright     Non of these scripts maybe copied or modified without permission of the author
+'===============================================
+
 Function VolgendeHeleUur(Optional datetime = "", Optional FormatStyle = "")
 Attribute VolgendeHeleUur.VB_Description = "Geeft de tijd van het volgende hele uur weer"
 Attribute VolgendeHeleUur.VB_ProcData.VB_Invoke_Func = " \n21"

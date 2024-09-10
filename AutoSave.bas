@@ -1,3 +1,4 @@
+Attribute VB_Name = "AutoSave"
 '===============================================
 '@details       Script for autosaving excel workbooks
 '@author        Jordi van Nistelrooij @ Webs en Systems

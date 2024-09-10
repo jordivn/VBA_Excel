@@ -1,4 +1,13 @@
 Attribute VB_Name = "Formules_Rookgasreiniging"
+'===============================================
+'@details       Formula's for calculating on flue gas cleaning based on dutch Martek studies
+'@author        Jordi van Nistelrooij @ Webs en Systems
+'@email         info@websensystems.nl
+'@version       1.0.0
+'@date          2024-09-10
+'@copyright     Non of these scripts maybe copied or modified without permission of the author
+'===============================================
+
 Function Quench_temp(PercentageWaterDamp As Double, QuenchDruk As Double)
 Attribute Quench_temp.VB_ProcData.VB_Invoke_Func = " \n31"
 'Waterpercentage bv 0.25 (%/100)

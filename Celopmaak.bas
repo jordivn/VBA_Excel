@@ -1,3 +1,4 @@
+Attribute VB_Name = "Celopmaak"
 '===============================================
 '@details       Functions to format cell's content. Mostly in dutch langauge
 '@author        Jordi van Nistelrooij @ Webs en Systems
@@ -12,7 +13,7 @@ Sub CelOpmakenBedragen(opmaakVorm)
         Case "E"
             Selection.NumberFormat = "$0.00"
         Case "E/m3"
-            Selection.NumberFormat = "$0.00""/mÂ³"""
+            Selection.NumberFormat = "$0.00""/m³"""
         Case "E/l"
         Selection.NumberFormat = "$0.00""/l"""
         Case "E/kg"
@@ -92,13 +93,13 @@ Sub CelOpmakenDruk(opmaakVorm)
             Selection.NumberFormat = "0.0 ""mbar(g)"""
        
         Case "N/mm2"
-            Selection.NumberFormat = "0 ""N/mmÂ²"""
+            Selection.NumberFormat = "0 ""N/mm²"""
         Case "N/cm2"
-            Selection.NumberFormat = "0.0 ""N/cmÂ²"""
+            Selection.NumberFormat = "0.0 ""N/cm²"""
         Case "N/m2"
-            Selection.NumberFormat = "0.0 ""N/mÂ²"""
+            Selection.NumberFormat = "0.0 ""N/m²"""
         Case "KN/m2"
-            Selection.NumberFormat = "0.0 ""KN/mÂ²"""
+            Selection.NumberFormat = "0.0 ""KN/m²"""
         
         Case "Pa"
             Selection.NumberFormat = "0 ""Pa"""
@@ -206,9 +207,9 @@ Sub CelOpmakenEnergie(opmaakVorm)
             Selection.NumberFormat = "0.0 ""GJ"""
                     
         Case "C"
-            Selection.NumberFormat = "0.0 ""Â°C"""
+            Selection.NumberFormat = "0.0 ""°C"""
         Case "F"
-            Selection.NumberFormat = "0.0 ""Â°F"""
+            Selection.NumberFormat = "0.0 ""°F"""
         Case "K"
             Selection.NumberFormat = "0.0 ""K"""
             
@@ -225,31 +226,31 @@ End Sub
 Sub CelOpmakenVolume(opmaakVorm)
     Select Case opmaakVorm
         Case "mm3"
-            Selection.NumberFormat = "0.0 ""mmÂ³"""
+            Selection.NumberFormat = "0.0 ""mm³"""
         Case "mm3/s"
-            Selection.NumberFormat = "0.0 ""mmÂ³/s"""
+            Selection.NumberFormat = "0.0 ""mm³/s"""
         Case "mm3/min"
-            Selection.NumberFormat = "0.0 ""mmÂ³/min"""
+            Selection.NumberFormat = "0.0 ""mm³/min"""
         Case "mm3/h"
-            Selection.NumberFormat = "0.0 ""mmÂ³/h"""
+            Selection.NumberFormat = "0.0 ""mm³/h"""
             
         Case "cm3"
-            Selection.NumberFormat = "0.0 ""cmÂ³"""
+            Selection.NumberFormat = "0.0 ""cm³"""
         Case "cm3/s"
-            Selection.NumberFormat = "0.0 ""cmÂ³/s"""
+            Selection.NumberFormat = "0.0 ""cm³/s"""
         Case "cm3/min"
-            Selection.NumberFormat = "0.0 ""cmÂ³/min"""
+            Selection.NumberFormat = "0.0 ""cm³/min"""
         Case "cm3/h"
-            Selection.NumberFormat = "0.0 ""cmÂ³/h"""
+            Selection.NumberFormat = "0.0 ""cm³/h"""
             
         Case "dm3"
-            Selection.NumberFormat = "0.0 ""dmÂ³"""
+            Selection.NumberFormat = "0.0 ""dm³"""
         Case "dm3/s"
-            Selection.NumberFormat = "0.0 ""dmÂ³/s"""
+            Selection.NumberFormat = "0.0 ""dm³/s"""
         Case "dm3/min"
-            Selection.NumberFormat = "0.0 ""dmÂ³/min"""
+            Selection.NumberFormat = "0.0 ""dm³/min"""
         Case "dm3/h"
-            Selection.NumberFormat = "0.0 ""dmÂ³/h"""
+            Selection.NumberFormat = "0.0 ""dm³/h"""
             
         Case "l"
             Selection.NumberFormat = "0.0 ""l"""
@@ -261,22 +262,22 @@ Sub CelOpmakenVolume(opmaakVorm)
             Selection.NumberFormat = "0.0 ""l/h"""
             
         Case "m3"
-            Selection.NumberFormat = "0.0 ""mÂ³"""
+            Selection.NumberFormat = "0.0 ""m³"""
         Case "m3/s"
-            Selection.NumberFormat = "0.0 ""mÂ³/s"""
+            Selection.NumberFormat = "0.0 ""m³/s"""
         Case "m3/min"
-            Selection.NumberFormat = "0.0 ""mÂ³/min"""
+            Selection.NumberFormat = "0.0 ""m³/min"""
         Case "m3/h"
-            Selection.NumberFormat = "0.0 ""mÂ³/h"""
+            Selection.NumberFormat = "0.0 ""m³/h"""
             
         Case "Nm3"
-            Selection.NumberFormat = "0.0 ""NmÂ³"""
+            Selection.NumberFormat = "0.0 ""Nm³"""
         Case "Nm3/s"
-            Selection.NumberFormat = "0.0 ""NmÂ³/s"""
+            Selection.NumberFormat = "0.0 ""Nm³/s"""
         Case "Nm3/min"
-            Selection.NumberFormat = "0.0 ""NmÂ³/min"""
+            Selection.NumberFormat = "0.0 ""Nm³/min"""
         Case "Nm3/h"
-            Selection.NumberFormat = "0.0 ""NmÂ³/h"""
+            Selection.NumberFormat = "0.0 ""Nm³/h"""
             
         Case "ml"
             Selection.NumberFormat = "0.0 ""ml"""
@@ -299,7 +300,7 @@ Sub CelOpmakenOverig(opmaakVorm)
     Case "perc3"
             Selection.NumberFormat = "0 ""%"""
     Case "us/cm"
-            Selection.NumberFormat = "0 ""Âµs/cm"""
+            Selection.NumberFormat = "0 ""µs/cm"""
             
     End Select
 End Sub
@@ -343,7 +344,7 @@ Sub CelOpmakenX(opmaakVorm)
     Select Case opmaakVorm
             
         Case "c"
-            Selection.NumberFormat = "0.00 ""Â°C"""
+            Selection.NumberFormat = "0.00 ""°C"""
         Case "bara"
             Selection.NumberFormat = "0.0 ""bar"""
         Case "barg"
@@ -351,9 +352,9 @@ Sub CelOpmakenX(opmaakVorm)
         Case "mbar"
             Selection.NumberFormat = "0 ""mbar"""
         Case "m3h"
-            Selection.NumberFormat = "0 ""mÂ³/h"""
+            Selection.NumberFormat = "0 ""m³/h"""
         Case "Nm3h"
-            Selection.NumberFormat = "0 ""NmÂ³/h"""
+            Selection.NumberFormat = "0 ""Nm³/h"""
         Case "lsec"
             Selection.NumberFormat = "0.0 ""L/s"""
         Case "lmin"
@@ -373,11 +374,11 @@ Sub CelOpmakenX(opmaakVorm)
         Case "kg"
             Selection.NumberFormat = "0.00 ""kg"""
         Case "m3"
-            Selection.NumberFormat = "0 ""mÂ³"""
+            Selection.NumberFormat = "0 ""m³"""
         Case "m2" 'Nog knop maken
-            Selection.NumberFormat = "0 ""mÂ²"""
+            Selection.NumberFormat = "0 ""m²"""
         Case "nmm2" 'Nog knop maken
-            Selection.NumberFormat = "0 ""N/mmÂ²"""
+            Selection.NumberFormat = "0 ""N/mm²"""
         Case "j" 'Nog knop maken
             Selection.NumberFormat = "0.00 ""J"""
         Case "w/s" 'Nog knop maken
@@ -391,8 +392,8 @@ Sub CelOpmakenX(opmaakVorm)
            Case "mwh" 'Nog knop maken
             Selection.NumberFormat = "0.00 ""MWh"""
         Case "uscm" 'Nog knop maken
-            Selection.NumberFormat = "0.00 ""Âµs/cm"""
+            Selection.NumberFormat = "0.00 ""µs/cm"""
        
     End Select
-   'Â³Â²Â²
+   '³²²
 End Sub
